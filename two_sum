@@ -1,0 +1,8 @@
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        h_nums = dict()
+        for f_el_ind, f_el in enumerate(nums):
+            h_nums[f_el_ind] = f_el
+        for ind, el in enumerate(nums): 
+            if ((target - el) in h_nums.values()) and list(h_nums.values()).index(target-el) != ind:
+                return [ind, list(h_nums.values()).index(target-el)]
