@@ -1,0 +1,39 @@
+class Solution:
+    def addBinary(self, a: str, b: str) -> str:
+        
+        l_a = len(a)
+        l_b = len(b)
+        L = l_a if l_a>l_b else l_b
+        d = abs(l_a - l_b)
+        
+        if l_a > l_b:
+            b = d*'0' + b
+        else:
+            a = d*'0' + a
+
+        bin_sum = L*['0']    
+        over = 0
+
+        for i in range(L-1,-1,-1):
+            
+            if a[i]=='0' and b[i]=='0':
+                bin_sum[i] = '0'
+                print(bin_sum)
+                if over == 1:
+                    bin_sum[i] = '1'
+                    over = 0
+    
+            elif a[i]=='0' or b[i]=='0':
+                bin_sum[i] = '1'
+                if over == 1:
+                    bin_sum[i] = '0'
+
+            elif a[i]=='1' and b[i]=='1':
+                bin_sum[i] = '0'
+                if over == 1:
+                    bin_sum[i] = '1'
+                over = 1 
+        if over == 1:
+            bin_sum = ['1'] + bin_sum
+
+        return "".join(bin_sum)
