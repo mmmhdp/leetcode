@@ -1,0 +1,19 @@
+class Solution:
+    def longestPalindrome(self, s: str) -> int:
+        
+        letters = dict()
+        
+        for char in s:
+            if char in letters.keys():
+                letters[char]+=1
+                continue
+            letters[char]=1
+        
+        max_pol_l = 0
+        flag = 0 
+        for char in letters.keys(): 
+            max_pol_l += letters[char] - letters[char]%2
+            if letters[char]%2 != 0:
+                flag+=1
+
+        return max_pol_l if flag == 0 else max_pol_l+1
