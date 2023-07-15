@@ -1,0 +1,39 @@
+class Solution:
+    def isValid(self, s: str) -> bool:
+        p_flag = 0
+        cb_flag = 0
+        b_flag = 0
+
+        last_open = []
+
+        for ind, char in enumerate(s): 
+            match char:
+                case "(":
+                    p_flag += 1
+                    last_open.append("(")
+                case ")":
+                    if last_open != [] and last_open.pop() == "(":
+                        p_flag -= 1 
+                    else:
+                        return False
+                case "{":
+                    cb_flag += 1
+                    last_open.append("{")
+                case "}":
+                    if last_open != [] and last_open.pop() == "{":
+                        cb_flag -= 1
+                    else:
+                        return False 
+                case "[":
+                    b_flag += 1
+                    last_open.append("[")
+                case "]":
+                    if last_open != [] and last_open.pop() == "[":
+                        b_flag -= 1
+                    else:
+                        return False 
+                case _:
+                    continue
+        if p_flag == 0 and cb_flag == 0 and b_flag == 0:
+            return True
+        return False
