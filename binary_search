@@ -1,0 +1,16 @@
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        nums_cp = nums.copy()
+
+        while len(nums) != 1:
+
+            tmp_ind = len(nums) // 2
+            
+            if nums[tmp_ind] == target:
+                return nums_cp.index(target)
+            elif nums[tmp_ind] > target:
+                nums = nums[:tmp_ind]
+            else:
+                nums = nums[tmp_ind:]
+        
+        return nums_cp.index(nums[0]) if nums[0] == target else -1
