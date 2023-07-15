@@ -1,0 +1,38 @@
+class MyQueue:
+
+    def __init__(self):
+        self.queue = list()
+
+    def push(self, x: int) -> None:
+        self.queue.append(x)
+
+    def pop(self) -> int:
+        tmp_stack = []
+        for _ in range(len(self.queue)-1):
+            tmp_stack.append(self.queue.pop())
+        first_el = self.queue.pop()
+        for _ in range(len(tmp_stack)):
+            self.queue.append(tmp_stack.pop())
+        return first_el
+
+    def peek(self) -> int:
+        tmp_stack = []
+        for _ in range(len(self.queue)-1):
+            tmp_stack.append(self.queue.pop())
+        first_el = self.queue.pop()
+        tmp_stack.append(first_el)
+        for _ in range(len(tmp_stack)):
+            self.queue.append(tmp_stack.pop())
+        return first_el
+
+    def empty(self) -> bool:
+        return False if len(self.queue) != 0 else True
+        
+
+
+# Your MyQueue object will be instantiated and called as such:
+# obj = MyQueue()
+# obj.push(x)
+# param_2 = obj.pop()
+# param_3 = obj.peek()
+# param_4 = obj.empty()
