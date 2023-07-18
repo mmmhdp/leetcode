@@ -13,5 +13,4 @@ class Solution:
     
     
     def maxDepth(self, root: Optional[TreeNode]) -> int:
-        print(self.dfs(root))
         return len(self.dfs(root))
