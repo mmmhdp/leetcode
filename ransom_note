@@ -16,4 +16,5 @@ class Solution:
                 letters[char] -= 1
                 if letters[char] < 0:
                     return False
+
         return True
