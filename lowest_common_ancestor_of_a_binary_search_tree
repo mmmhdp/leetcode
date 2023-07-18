@@ -5,9 +5,11 @@ class TreeNode:
         self.left = None
         self.right = None
 
+
 class Solution:
+
+
     def lowestCommonAncestor(self, root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode:
-        print(root.val)
         if p.val < root.val and q.val < root.val and root.left is not None:
             return self.lowestCommonAncestor(root.left, p, q)
         elif p.val > root.val and q.val > root.val and root.right is not None:
