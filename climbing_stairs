@@ -1,17 +1,21 @@
 class Solution:
+
+
     def climbStairs(self, n: int) -> int:
         return self.feb(n)
+
+
     def feb(self, n: int) -> int :
-        if n == 1:
+        if n == 1 or n == 0:
             return 1  
-        if n == 0:
-            return 1
-        
+
         t = 1 
         k = 1
         curr = 0  
+
         for p in range(1, n):
-            curr = t+k
+            curr = t + k
             t = k
             k = curr
+
         return curr
