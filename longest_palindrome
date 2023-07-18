@@ -11,6 +11,7 @@ class Solution:
         
         max_pol_l = 0
         flag = 0 
+
         for char in letters.keys(): 
             max_pol_l += letters[char] - letters[char]%2
             if letters[char]%2 != 0:
