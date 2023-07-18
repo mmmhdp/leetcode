@@ -1,0 +1,19 @@
+class Solution:
+
+    
+    def maxSubArray(self, nums: List[int]) -> int:
+        """Kadane's algo"""
+        curr_max = 0
+        max_max = -1e4-1 
+
+        for ind in range(len(nums)):
+
+            curr_max += nums[ind]
+            
+            if max_max < curr_max:
+                max_max = curr_max
+            
+            if curr_max < 0:
+                curr_max = 0
+        
+        return max_max
