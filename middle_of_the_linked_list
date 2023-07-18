@@ -1,0 +1,40 @@
+# Definition for singly-linked list.
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+
+class Search:
+    def __init__(self):
+        self.flag = -1 
+        self.counter = 0     
+        self.middle_node = None  
+    
+    
+    def recursive_search_of_middle_node(self, head: Optional[ListNode]):
+        self.counter += 1 
+
+        if not head.next: 
+            self.flag = self.counter // 2 + 1 
+            if self.flag == self.counter:
+                self.middle_node = head
+            return 0
+
+        self.recursive_search_of_middle_node(head.next)
+
+        self.counter -= 1
+
+        if self.flag == self.counter:
+            self.middle_node = head
+
+        return 0
+
+
+class Solution:
+
+
+    def middleNode(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        search = Search()
+        search.recursive_search_of_middle_node(head)
+        return search.middle_node
