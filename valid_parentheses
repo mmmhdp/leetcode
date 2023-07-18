@@ -1,4 +1,6 @@
 class Solution:
+
+
     def isValid(self, s: str) -> bool:
         p_flag = 0
         cb_flag = 0
@@ -34,6 +36,8 @@ class Solution:
                         return False 
                 case _:
                     continue
+
         if p_flag == 0 and cb_flag == 0 and b_flag == 0:
             return True
+
         return False
