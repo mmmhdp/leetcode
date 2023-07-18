@@ -6,10 +6,10 @@ class Solution:
             return []
         if root.left is None and root.right is None:
             return [root.val]
-        l = self.dfs(root.left)
-        r = self.dfs(root.right)
+        L = self.dfs(root.left)
+        R = self.dfs(root.right)
         
-        return [root.val] + l if len(l) > len(r) else [root.val] + r
+        return [root.val] + L if len(L) > len(R) else [root.val] + R
     
     
     def maxDepth(self, root: Optional[TreeNode]) -> int:
