@@ -5,83 +5,52 @@ class Solution:
     
     
     def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
-        if not intervals:
-            return [newInterval]
+        result = []
+        
+        #isInserted flag for newInterval insertion.
+        status = -1
 
-        R = self.find_right(intervals, newInterval)
-        L = self.find_left(intervals, newInterval)
+        left = newInterval[0]
+        right = newInterval[1]
 
-        ind_R = intervals.index(R[0])
-        ind_L = intervals.index(L[0])
+        for interval in intervals:
 
-        if L[1] == -1 and R[1] == -1:
-            return intervals + [newInterval]
-        
-        if L[1] == 0 and R[1] == -1:
-            tmp = [newInterval]
-            return intervals[:ind_L] + tmp
-        
-        if L[1] == 1 and R[1] == -1:
-            tmp = [[L[0][0], newInterval[1]]]
-            return intervals[:ind_L] + tmp
+            
+            # if newInterval goes after curr inteval,
+            # we just append curr interval and go to the next one
+            
+            if interval[1] < left:
+                result.append(interval)
 
+            # if newInterval goes before curr,
+            # we add preconfigured(maybe merged)
+            # newInterval and curr interval after.
+            # Flag changed to 0, means we done.
+            # Just append rest of the intervals after. 
         
-        # if R[1] == 1 and L[1] == -1:
-        
-        if L[1] == 0 and R[1] == 1:
-            tmp = [[newInterval[0], R[0][1]]]
-     
-            return intervals[:ind_L] + tmp + intervals[ind_R+1:]
-        
-        if L[1] == 1 and R[1] == 1:
-            tmp = [[L[0][0], R[0][1]]]
-            if R[0][1]!=ind_R:
-                return intervals[:ind_L] + tmp + intervals[ind_R+1:]
+            elif interval[0] > right:
+                if status != 0:
+                    result.append([left,right])
+                    status = 0
+                ind = intervals.index(interval)
+                result = result + intervals[ind:]
+                break
+
+            # if interception is existed,
+            # we update left and right 
+            # border and goes to the next interval. 
             else:
-                return intervals[:ind_L] + tmp + intervals[ind_R:]
+                left = min(left, interval[0])
+                right = max(right, interval[1])
+
+                status = -1
+
+        # if status still !=0, we go through 
+        # intervals, that means, newInterval 
+        # goes after all of it and we 
+        # append, if nessacery.
+        if status != 0:
+            result.append([left,right]) 
         
-
-        # if R[1] == 0 and L[1] == -1:
+        return result
         
-        if L[1] == 0 and R[1] == 0:
-            tmp = [newInterval]
-    
-            return intervals[:ind_L] + tmp + intervals[ind_R:]
-            
-        
-        if L[1] == 1 and R[1] == 0:
-            tmp = [[L[0][0], newInterval[1]]]
-            if newInterval[1]!=ind_R:
-                return intervals[:ind_L] + tmp + intervals[ind_R:]
-            else:
-                return intervals[:ind_L] + tmp + intervals[ind_R+1:]
-            
-    
-    def find_left(self, intervals, newInterval):
-        c_intervals = copy.deepcopy(intervals)
-
-        for interval in c_intervals:
-            if newInterval[0] in range(interval[0],interval[1]+1):
-                return interval, 1
-            elif newInterval[0] < interval[0]:
-                return interval, 0
-            elif newInterval[0] > interval[1]:
-                continue
-                
-        return (c_intervals.pop(), -1)
-
-    
-    def find_right(self, intervals, newInterval):
-
-        c_intervals = copy.deepcopy(intervals)
-
-        for interval in c_intervals:
-            if newInterval[1] in range(interval[0],interval[1]+1):
-                return interval, 1
-            elif newInterval[1] < interval[0]:
-                return interval, 0
-            elif newInterval[1] > interval[1]:
-                continue
-
-        return (c_intervals.pop(), -1)
-            
