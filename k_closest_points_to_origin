@@ -1,0 +1,33 @@
+import math as m
+
+
+class Solution:
+
+
+    def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
+        ORIGIN = [0, 0]
+        ORIGIN_x = 0
+        ORIGIN_y = 0
+        
+        distances = dict()
+        
+
+        for point in points:
+            point_x = point[0]
+            point_y = point[1]
+
+            curr_point_dist = m.sqrt(pow(ORIGIN_x - point_x, 2) + pow(ORIGIN_y - point_y, 2))
+            if not (curr_point_dist in distances.keys()):
+                distances[curr_point_dist] = [] 
+            distances[curr_point_dist].append([point_x, point_y])
+
+        sorted_distances = sorted(distances.items(), key = lambda point: point[0])
+        
+        points_sorted_by_distance = []
+        
+        for dist_and_points in sorted_distances:
+            points_sorted_by_distance += dist_and_points[1]
+        
+        k_closest_to_the_origin = points_sorted_by_distance [:k]
+
+        return k_closest_to_the_origin
