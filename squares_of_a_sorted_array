@@ -1,0 +1,28 @@
+class Solution:
+    def sortedSquares(self, nums: List[int]) -> List[int]:
+        if not nums:
+            return nums
+
+        nums = nums.copy()
+
+        l_p = 0
+        r_p = len(nums) - 1
+
+        sq_nums = []
+        sq_w_ind = len(nums) - 1
+
+        while sq_w_ind >= 0:
+
+            l = pow(nums[l_p], 2)
+            r = pow(nums[r_p], 2)
+
+            tmp_i, tmp = [l_p, l] if l > r else [r_p, r]
+            l_p, r_p = [l_p + 1, r_p] if l > r else [l_p, r_p - 1]
+
+            sq_w_ind -= 1 
+            sq_nums.append(tmp)
+        
+        for i in range(len(sq_nums)//2):
+            sq_nums[i], sq_nums[len(sq_nums) - 1 - i] = sq_nums[len(sq_nums) - 1 - i], sq_nums[i]
+
+        return  sq_nums
