@@ -1,13 +1,8 @@
-import math as m
-
 class Solution:
     def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
         
-        ORIGIN_x = 0
-        ORIGIN_y = 0
-         
-        points_and_distances = [([point[0], point[1]], m.sqrt(pow(ORIGIN_x - point[0], 2) + pow(ORIGIN_y - point[1], 2))) for point in points]
-        
+        points_and_distances = [([point[0], point[1]], point[0]*point[0] + point[1]*point[1]) for point in points]
+      
         ordered_points_and_distances = sorted(points_and_distances, key = lambda el: el[1])
     
         ordered_points = [point_dist[0] for point_dist in ordered_points_and_distances]
