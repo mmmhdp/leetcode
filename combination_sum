@@ -1,0 +1,22 @@
+class Solution:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+
+        def dfs(can_arr, curr_base, curr_sum, res):
+            for ind, el in enumerate(can_arr):
+                tmp_sum = curr_sum - el
+                if tmp_sum == 0:
+                    res.append(curr_base + [el])
+                elif tmp_sum < 0:
+                    continue
+                else:
+                    dfs(can_arr[ind:], curr_base + [el], tmp_sum, res)
+            return
+
+        if not candidates:
+            return candidates
+
+        res = []
+
+        dfs(candidates, [], target, res)
+
+        return res
