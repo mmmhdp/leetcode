@@ -9,6 +9,7 @@ class Solution:
         merged = []
         
         for i in range(len(intervals) - 1):
+            
             flag = 0
             curr_int, next_int = intervals[i], intervals[i + 1]
 
@@ -20,17 +21,17 @@ class Solution:
             elif curr_int[1] < next_int[0]:
                 if intervals[i] not in merged:
                     merged.append(intervals[i])
+            
             else:
                 tmp = [min(curr_int[0], next_int[0]), max(curr_int[1], next_int[1])]
         
                 if curr_int in merged:
                     merged.pop(merged.index(curr_int))
-
-                if tmp not in merged:
-                    merged.append(tmp)
-        
-                intervals[i + 1] = [tmp[0], tmp[1]]
                 flag = 1
+                
+                intervals[i + 1] = [tmp[0], tmp[1]]
+                merged.append(tmp)
+        
 
         if flag == 0:
             merged.append(intervals.pop())
