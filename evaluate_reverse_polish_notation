@@ -1,0 +1,23 @@
+from math import trunc as tr
+
+class Solution:
+    def evalRPN(self, tokens: List[str]) -> int:
+        stack = deque()
+    
+        for token in tokens:
+            if token != '+' and token != '-' and token != '*' and token != '/':
+                stack.append(token)
+            else:
+                stack.append(token)
+
+                func = stack.pop()
+                oper_2 = int(stack.pop())
+                oper_1 = int(stack.pop())
+                
+                res = eval(f"{oper_1} {func} {oper_2}")
+
+                stack.append(tr(res))
+        
+        res = int(stack.pop())
+        
+        return res 
