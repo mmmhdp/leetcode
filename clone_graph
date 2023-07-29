@@ -1,0 +1,42 @@
+from copy import deepcopy
+
+class Node:
+    def __init__(self, val = 0, neighbors = None):
+        self.val = val
+        self.neighbors = neighbors if neighbors is not None else []
+    
+
+class Solution:
+    def cloneGraph(self, node: 'Node') -> 'Node':
+        
+        if not node: return node
+
+        q = deque()
+        q.append(node)
+
+        copied = dict()
+        copied[node.val] = Node(node.val, [])
+
+        while q:
+            c_node = q.popleft()
+            c_clone = copied[c_node.val]
+            
+            for n in c_node.neighbors:
+                print(n.val)
+                if n.val not in copied.keys():
+
+                    n_clone = Node(n.val, [])      
+                
+                    copied[n.val] = n_clone
+                    
+                    q.append(n)
+
+                else: 
+                 
+                    n_clone = copied[n.val]
+        
+                copied[c_node.val].neighbors.append(n_clone)
+        
+        copy_node = copied[node.val] 
+        
+        return copy_node
