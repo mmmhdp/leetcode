@@ -17,5 +17,7 @@ class Solution:
                 left = used[char] + 1
             else: 
                 max_sub_len = max(ind - left + 1, max_sub_len)
+            
             used[char] = ind
+
         return max_sub_len
