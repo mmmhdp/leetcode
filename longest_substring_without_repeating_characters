@@ -1,0 +1,32 @@
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+       
+        if s == "":
+            result = 0
+            return result 
+
+        used = {x: [set(), 0, 0, 0] for x in range(len(s))}
+        results = set()
+
+        for ind, char in enumerate(s):
+
+            for inner_ind in range(ind+1):
+
+                if used[inner_ind][3] == -1:
+                    continue
+
+                if char in used[inner_ind][0]:
+                    used[inner_ind][3] = -1
+
+                    used[inner_ind][2] = max(used[inner_ind][2], used[inner_ind][1])
+
+                else:
+                    used[inner_ind][1] += 1
+                    used[inner_ind][0].add(char)
+                    used[inner_ind][2] = max(used[inner_ind][2], used[inner_ind][1])
+
+                results.add(used[inner_ind][2])
+
+        result = max(results)
+
+        return result
