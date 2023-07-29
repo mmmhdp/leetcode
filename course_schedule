@@ -1,0 +1,31 @@
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        
+        pre = defaultdict(list)
+
+        for co, pr in prerequisites:
+            pre[co].append(pr)
+        
+        taken = set()
+
+        def dfs(co):
+            if not pre[co]:
+                return True
+            if co in taken:
+                return False
+
+            taken.add(co)
+
+            for pr in pre[co]:
+                if not dfs(pr):
+                    return False
+            
+            pre[co] = []
+            
+            return True
+        
+        for co in range(numCourses):
+            if not dfs(co):
+                return False
+        
+        return True
